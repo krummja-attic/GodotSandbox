@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://_Dev/Scripts/ControllerTest.cs" type="Script" id=1]
+[ext_resource path="res://_Dev/Assets/CelestialIcon/Star.tscn" type="PackedScene" id=2]
+[ext_resource path="res://_Dev/Assets/GridPlane/GridController.tscn" type="PackedScene" id=3]
+[ext_resource path="res://_Dev/Scripts/SelectionController.cs" type="Script" id=4]
+[ext_resource path="res://_Dev/Assets/CameraController/CameraRig.tscn" type="PackedScene" id=5]
+[ext_resource path="res://_Dev/Assets/GridPlane/Scripts/GridController.cs" type="Script" id=6]
+
+[node name="Root" type="Spatial"]
+
+[node name="CameraRig" parent="." instance=ExtResource( 5 )]
+script = ExtResource( 1 )
+
+[node name="GridController" parent="." instance=ExtResource( 3 )]
+script = ExtResource( 6 )
+Snap = 80.0
+
+[node name="Star" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -12.0641, 9.21847, 0 )
+
+[node name="SelectionController" type="Spatial" parent="."]
+script = ExtResource( 4 )
+
+[node name="DebugGUI" type="MarginContainer" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBox" type="VBoxContainer" parent="DebugGUI"]
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[node name="DragStart" type="Label" parent="DebugGUI/VBox"]
+margin_right = 1024.0
+margin_bottom = 25.0
+text = "S: <x, y, z>"
+
+[node name="DragDelta" type="Label" parent="DebugGUI/VBox"]
+margin_top = 33.0
+margin_right = 1024.0
+margin_bottom = 58.0
+text = "D: <x, y, z>"
+
+[node name="DragEnd" type="Label" parent="DebugGUI/VBox"]
+margin_top = 66.0
+margin_right = 1024.0
+margin_bottom = 91.0
+text = "E: <x, y, z>"
+
+[editable path="CameraRig"]

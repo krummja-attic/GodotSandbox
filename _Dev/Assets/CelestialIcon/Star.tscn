@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://_Dev/Assets/CelestialIcon/Art/T_Circle_3.png" type="Texture" id=1]
+[ext_resource path="res://_Dev/Assets/CelestialIcon/Scripts/Star.cs" type="Script" id=2]
+[ext_resource path="res://_Dev/Assets/CelestialIcon/Art/T_Line.png" type="Texture" id=3]
+
+[sub_resource type="SphereShape" id=1]
+radius = 0.457986
+
+[node name="Star" type="Spatial"]
+script = ExtResource( 2 )
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+shape = SubResource( 1 )
+
+[node name="Icon" type="Sprite3D" parent="."]
+transform = Transform( 0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0 )
+billboard = 1
+double_sided = false
+alpha_cut = 2
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 0, 355, 355 )
+
+[node name="Line" type="Sprite3D" parent="."]
+transform = Transform( 0.1, 0, 0, 0, 1, 0, 0, 0, 0.1, 0, 0, 0 )
+opacity = 0.3
+billboard = 2
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 200, 1000 )
+
+[node name="Intercept" type="Sprite3D" parent="."]
+transform = Transform( 0.15, 0, 0, 0, -6.55671e-09, -0.15, 0, 0.15, -6.55671e-09, 0, 0, 0 )
+opacity = 0.1
+texture = ExtResource( 1 )

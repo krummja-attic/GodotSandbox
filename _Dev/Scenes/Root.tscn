@@ -1,0 +1,94 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://_Dev/Assets/CameraController/CameraRig.tscn" type="PackedScene" id=1]
+[ext_resource path="res://_Dev/Assets/GridPlane/GridController.tscn" type="PackedScene" id=2]
+[ext_resource path="res://_Dev/Scripts/GameManager.cs" type="Script" id=3]
+[ext_resource path="res://_Dev/Assets/GridPlane/Scripts/GridController.cs" type="Script" id=4]
+[ext_resource path="res://_Dev/Environments/default_env.tres" type="Environment" id=5]
+[ext_resource path="res://_Dev/Assets/Galaxy/StarGenerator.tscn" type="PackedScene" id=6]
+[ext_resource path="res://_Dev/Scripts/SelectionController.cs" type="Script" id=7]
+[ext_resource path="res://_Dev/Shaders/CRT.shader" type="Shader" id=8]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 8 )
+shader_param/overlay = true
+shader_param/scanlines_opacity = 0.126
+shader_param/scanlines_width = 0.058
+shader_param/grille_opacity = 0.211
+shader_param/resolution = Vector2( 1024, 768 )
+shader_param/pixelate = false
+shader_param/roll = false
+shader_param/roll_speed = 2.355
+shader_param/roll_size = 0.0
+shader_param/roll_variation = 1.249
+shader_param/distort_intensity = 0.023
+shader_param/noise_opacity = 0.25
+shader_param/noise_speed = 5.0
+shader_param/static_noise_intensity = 0.018
+shader_param/aberration = 0.01
+shader_param/brightness = 1.4
+shader_param/discolor = true
+shader_param/warp_amount = 0.0
+shader_param/clip_warp = false
+shader_param/vignette_intensity = 0.4
+shader_param/vignette_opacity = 0.5
+
+[node name="Root" type="Spatial"]
+script = ExtResource( 3 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="GUI" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Debug" type="VBoxContainer" parent="GUI"]
+margin_right = 1024.0
+margin_bottom = 600.0
+mouse_filter = 2
+
+[node name="Position" type="Label" parent="GUI/Debug"]
+margin_right = 81.0
+margin_bottom = 25.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "{X, Y, Z}"
+
+[node name="Velocity" type="Label" parent="GUI/Debug"]
+margin_top = 33.0
+margin_right = 81.0
+margin_bottom = 58.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "{X, Y, Z}"
+
+[node name="StarGenerator" parent="." instance=ExtResource( 6 )]
+MinRadius = 30
+MaxRadius = 400
+
+[node name="GridController" parent="." instance=ExtResource( 2 )]
+script = ExtResource( 4 )
+Snap = 80.0
+
+[node name="SelectionController" type="Spatial" parent="."]
+script = ExtResource( 7 )
+
+[node name="CameraRig" parent="." instance=ExtResource( 1 )]
+MaxRotationSpeed = 0.01
+HeightSpeed = 10.0
+HeightDamping = 0.533
+
+[node name="Camera" parent="CameraRig" index="0"]
+environment = ExtResource( 5 )
+current = true
+near = 0.01
+far = 500.0
+
+[editable path="CameraRig"]
